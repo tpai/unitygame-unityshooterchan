@@ -51,10 +51,14 @@ public class UnitychanController : MonoBehaviour {
 		m_rigidbody2D.velocity = new Vector2 (x * maxSpeed, m_rigidbody2D.velocity.y);
 
 		m_animator.SetFloat ("Horizontal", x);
+		m_animator.SetFloat ("Vertical", m_rigidbody2D.velocity.y);
+		m_animator.SetBool ("IsGround", m_isGround);
 		
 		// When press jump
 		if (jump && m_isGround) {
 			m_rigidbody2D.AddForce (Vector2.up * jumpPower);
+
+			m_animator.SetTrigger ("Jump");
 		}
 	}
 	
