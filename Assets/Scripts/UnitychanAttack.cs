@@ -22,7 +22,7 @@ public class UnitychanAttack : MonoBehaviour {
 		holdFire = true;
 		GameObject bullet = (GameObject)Instantiate (
 			coin,
-			transform.position + transform.right,
+			transform.position,
 			Quaternion.identity
 		);
 		bullet.GetComponent<Rigidbody2D> ().AddForce (target * shootForce);
