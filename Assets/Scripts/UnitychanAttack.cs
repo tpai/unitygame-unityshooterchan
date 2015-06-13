@@ -18,14 +18,14 @@ public class UnitychanAttack : MonoBehaviour {
 		}
 	}
 
-	IEnumerator Shoot (Vector3 target) {
+	IEnumerator Shoot (Vector3 direction) {
 		holdFire = true;
 		GameObject bullet = (GameObject)Instantiate (
 			coin,
 			transform.position,
 			Quaternion.identity
 		);
-		bullet.GetComponent<Rigidbody2D> ().AddForce (target * shootForce);
+		bullet.GetComponent<Rigidbody2D> ().AddForce (direction * shootForce);
 		yield return new WaitForSeconds (timeOffset);
 		holdFire = false;
 	}
