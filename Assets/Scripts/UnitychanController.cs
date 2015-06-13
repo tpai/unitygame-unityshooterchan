@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Animator), typeof(BoxCollider2D), typeof(Rigidbody2D))]
 
 public class UnitychanController : MonoBehaviour {
 
@@ -13,6 +13,7 @@ public class UnitychanController : MonoBehaviour {
 	
 	public LayerMask whatIsGround;
 
+	private Animator m_animator;
 	private Rigidbody2D m_rigidbody2D;
 	private BoxCollider2D m_boxcollider2D;
 	private bool m_isGround;
@@ -28,7 +29,9 @@ public class UnitychanController : MonoBehaviour {
 	}
 
 	void Awake () {
+		m_animator = GetComponent <Animator>();
 		m_rigidbody2D = GetComponent <Rigidbody2D>();
+		m_boxcollider2D = GetComponent <BoxCollider2D>();
 	}
 	
 	void Update () {
@@ -46,6 +49,8 @@ public class UnitychanController : MonoBehaviour {
 		
 		// Assign forward speed and gravity speed
 		m_rigidbody2D.velocity = new Vector2 (x * maxSpeed, m_rigidbody2D.velocity.y);
+
+		m_animator.SetFloat ("Horizontal", x);
 		
 		// When press jump
 		if (jump && m_isGround) {
