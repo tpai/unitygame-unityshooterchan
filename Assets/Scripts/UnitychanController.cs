@@ -12,13 +12,18 @@ public class UnitychanController : MonoBehaviour {
 	public Transform groundCheckB;
 	
 	public LayerMask whatIsGround;
-
+	
 	private Animator m_animator;
 	private Rigidbody2D m_rigidbody2D;
 	private BoxCollider2D m_boxcollider2D;
 	private bool m_isGround;
+	private bool m_isDead;
 
 	void Reset () {
+
+		// 
+		m_isDead = false;
+
 		// Rigidbody2D
 		m_rigidbody2D.gravityScale = 3.5f;
 		m_rigidbody2D.fixedAngle = true;
@@ -35,9 +40,11 @@ public class UnitychanController : MonoBehaviour {
 	}
 	
 	void Update () {
-		float x = Input.GetAxis ("Horizontal");
-		bool jump = Input.GetButtonDown ("Jump");
-		Move (x, jump);
+		if (!m_isDead) {
+			float x = Input.GetAxis ("Horizontal");
+			bool jump = Input.GetButtonDown ("Jump");
+			Move (x, jump);
+		}
 	}
 	
 	void Move (float x, bool jump) {
@@ -65,5 +72,22 @@ public class UnitychanController : MonoBehaviour {
 	void FixedUpdate () {
 		// Set a rectangle area to detect collision with ground
 		m_isGround = Physics2D.OverlapArea(groundCheckA.position, groundCheckB.position, whatIsGround);
+	}
+
+	void OnCollisionEnter2D (Collision2D coll) {
+		if (coll.collider.tag == "DamageObject") {
+			m_isDead = true;
+			m_animator.SetTrigger("Dead");
+			m_boxcollider2D.enabled = false;
+
+			Vector2 dropForce;
+
+			if (coll.collider.transform.position.x - transform.position.x > 0)
+				dropForce = new Vector2 (-500f, 700f);
+			else
+				dropForce = new Vector2 (500f, 700f);
+
+			m_rigidbody2D.AddForce(dropForce);
+		}
 	}
 }
