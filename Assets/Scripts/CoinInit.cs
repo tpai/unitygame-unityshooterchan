@@ -25,10 +25,19 @@ public class CoinInit : MonoBehaviour {
 		}
 
 		if (coll.collider.tag == "DamageObject") {
+
 			coll.collider.GetComponent<Rigidbody2D>().isKinematic = false;
-			coll.collider.GetComponent<Rigidbody2D>().AddForce (new Vector2 (500f, 700f));
+
+			Vector2 dropForce;
+
+			if (coll.collider.transform.position.x - transform.position.x > 0)
+				dropForce = new Vector2 (500f, 700f);
+			else
+				dropForce = new Vector2 (-500f, 700f);
+
+			coll.collider.GetComponent<Rigidbody2D>().AddForce (dropForce);
 			coll.collider.GetComponent<CircleCollider2D>().enabled = false;
-			coll.collider.GetComponent<Animator>().SetTrigger ("Dead");
+			Destroy (coll.collider.gameObject, 2f);
 		}
 	}
 }
