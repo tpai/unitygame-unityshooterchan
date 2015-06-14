@@ -4,7 +4,7 @@ using System.Collections;
 public class UnitychanAttack : MonoBehaviour {
 
 	public float timeOffset = .5f;
-	public float shootForce = 200f;
+	public float shootForce = 1600f;
 
 	[SerializeField] GameObject coin;
 	bool holdFire = false;
@@ -25,7 +25,12 @@ public class UnitychanAttack : MonoBehaviour {
 			transform.position,
 			Quaternion.identity
 		);
-		bullet.GetComponent<Rigidbody2D> ().AddForce (direction * shootForce);
+		bullet.GetComponent<Rigidbody2D> ().AddForce (
+			new Vector2 (
+				Mathf.Clamp(direction.x * shootForce, -1000f, 1000f),
+				Mathf.Clamp(direction.y * shootForce, -1000f, 1000f)
+			)
+		);
 		yield return new WaitForSeconds (timeOffset);
 		holdFire = false;
 	}

@@ -79,6 +79,7 @@ public class UnitychanController : MonoBehaviour {
 			m_isDead = true;
 			m_animator.SetTrigger("Dead");
 			m_boxcollider2D.enabled = false;
+			m_rigidbody2D.velocity = Vector2.zero; // Fix jump when die
 
 			Vector2 dropForce;
 
@@ -88,6 +89,9 @@ public class UnitychanController : MonoBehaviour {
 				dropForce = new Vector2 (200f, 500f);
 
 			m_rigidbody2D.AddForce(dropForce);
+
+			PlayerSpawner.instance.Respawn (1f);
+			Destroy (gameObject, 1.1f);
 		}
 	}
 }
