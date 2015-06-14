@@ -6,7 +6,7 @@ using System.Collections;
 public class UnitychanController : MonoBehaviour {
 
 	public float maxSpeed = 10f;
-	public float jumpPower = 1000f;
+	public float jumpPower = 1600f;
 	
 	public Transform groundCheckA;
 	public Transform groundCheckB;
@@ -83,9 +83,9 @@ public class UnitychanController : MonoBehaviour {
 			Vector2 dropForce;
 
 			if (coll.collider.transform.position.x - transform.position.x > 0)
-				dropForce = new Vector2 (-500f, 700f);
+				dropForce = new Vector2 (-200f, 500f);
 			else
-				dropForce = new Vector2 (500f, 700f);
+				dropForce = new Vector2 (200f, 500f);
 
 			m_rigidbody2D.AddForce(dropForce);
 		}
