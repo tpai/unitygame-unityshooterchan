@@ -11,11 +11,11 @@ public class CameraFollow : MonoBehaviour {
 
 	void FixedUpdate () {
 
-		if (transform != null) {
+		if (target != null) {
 			transform.position = Vector3.Lerp (
 				transform.position,
 				new Vector3 (
-					Mathf.Clamp (target.position.x, -1f, 100f),
+					Mathf.Clamp (target.position.x, -.5f, 100f),
 					transform.position.y,
 					transform.position.z
 				),

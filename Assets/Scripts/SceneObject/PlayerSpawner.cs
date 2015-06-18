@@ -19,6 +19,10 @@ public class PlayerSpawner : MonoBehaviour {
 		StartCoroutine ( Spawn (wait) );
 	}
 
+	public void Nospawn () {
+		Camera.main.GetComponent<CameraFollow>().AssignTarget (null);
+	}
+
 	IEnumerator Spawn (float wait) {
 		yield return new WaitForSeconds (wait);
 		GameObject player = (GameObject)Instantiate (

@@ -13,6 +13,9 @@ public class UnitychanAttack : MonoBehaviour {
 		Debug.DrawRay(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), Color.green);
 
 		if (!holdFire && Input.GetButtonDown ("Fire1")) {
+
+			if (!CoinCounter.instance.AddCoin(-1))return ;
+
 			Vector3 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
 			StartCoroutine ( Shoot ( Vector3.Normalize(direction) ) );
 		}
