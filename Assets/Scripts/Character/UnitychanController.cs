@@ -90,6 +90,8 @@ public class UnitychanController : MonoBehaviour {
 
 			m_rigidbody2D.AddForce(dropForce);
 
+			// ------
+
 			if (LiveCounter.instance.AddLive (-1))
 				PlayerSpawner.instance.Respawn (1f);
 			else

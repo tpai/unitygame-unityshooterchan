@@ -35,6 +35,7 @@ public class CoinInit : MonoBehaviour {
 			else
 				dropForce = new Vector2 (-500f, 700f);
 
+			coll.collider.SendMessage ("UniKill");
 			coll.collider.GetComponent<Rigidbody2D>().AddForce (dropForce);
 			coll.collider.GetComponent<CircleCollider2D>().enabled = false;
 			Destroy (coll.collider.gameObject, 2f);
