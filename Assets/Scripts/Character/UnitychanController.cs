@@ -6,6 +6,7 @@ using System.Collections;
 public class UnitychanController : MonoBehaviour {
 
 	public float maxSpeed = 10f;
+	public float maxHeight = 4f;
 	public float jumpPower = 1600f;
 	
 	public Transform groundCheckA;
@@ -16,6 +17,8 @@ public class UnitychanController : MonoBehaviour {
 	private Animator m_animator;
 	private Rigidbody2D m_rigidbody2D;
 	private BoxCollider2D m_boxcollider2D;
+	private float m_jumpStartY;
+	private bool m_isJumping;
 	private bool m_isGround;
 	private bool m_isDead;
 
@@ -23,6 +26,7 @@ public class UnitychanController : MonoBehaviour {
 
 		// 
 		m_isDead = false;
+		m_isJumping = false;
 
 		// Rigidbody2D
 		m_rigidbody2D.gravityScale = 3.5f;
@@ -44,6 +48,12 @@ public class UnitychanController : MonoBehaviour {
 			float x = Input.GetAxis ("Horizontal");
 			bool jump = Input.GetButtonDown ("Jump");
 			Move (x, jump);
+
+			bool holdJump = Input.GetButton ("Jump");
+			if (holdJump && m_isJumping)
+				m_rigidbody2D.AddForce (Vector2.up * 30f);
+
+			if (transform.position.y - m_jumpStartY > maxHeight)m_isJumping = false;
 		}
 	}
 	
@@ -63,8 +73,9 @@ public class UnitychanController : MonoBehaviour {
 		
 		// When press jump
 		if (jump && m_isGround) {
+			m_isJumping = true;
+			m_jumpStartY = transform.localPosition.y;
 			m_rigidbody2D.AddForce (Vector2.up * jumpPower);
-
 			m_animator.SetTrigger ("Jump");
 		}
 	}
