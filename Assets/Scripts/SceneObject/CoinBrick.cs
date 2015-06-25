@@ -23,15 +23,14 @@ public class CoinBrick : MonoBehaviour {
 			Quaternion.identity
 		);
 		coinObj.GetComponent<Rigidbody2D>().AddForce (Vector2.up * 500f);
+		Destroy (coinObj, .5f);
+		CoinCounter.instance.AddCoin (1);
 	}
 
 	void OnCollisionEnter2D (Collision2D coll) {
 		if (coin != 0 && coll.collider.tag == "Player") {
 
-			float vRange = transform.position.y - coll.collider.transform.position.y;
-			float hRange = transform.position.x - coll.collider.transform.position.x;
-			if (hRange > .8f || hRange < -.8f)return ;
-			if (vRange <= 1.4f)return ;
+			if (!coll.collider.GetComponent<UnitychanController>().IsJumping)return ;
 
 			PopCoin ();
 			m_animator.SetTrigger ("Hit");

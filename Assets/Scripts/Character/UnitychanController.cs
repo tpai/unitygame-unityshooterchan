@@ -11,7 +11,6 @@ public class UnitychanController : MonoBehaviour {
 	
 	public Transform groundCheckA;
 	public Transform groundCheckB;
-	
 	public LayerMask whatIsGround;
 	
 	private Animator m_animator;
@@ -21,6 +20,8 @@ public class UnitychanController : MonoBehaviour {
 	private bool m_isJumping;
 	private bool m_isGround;
 	private bool m_isDead;
+
+	public bool IsJumping { get { return m_isJumping; } }
 
 	void Reset () {
 
@@ -53,7 +54,11 @@ public class UnitychanController : MonoBehaviour {
 			if (holdJump && m_isJumping)
 				m_rigidbody2D.AddForce (Vector2.up * 30f);
 
-			if (transform.position.y - m_jumpStartY > maxHeight)m_isJumping = false;
+			if (
+				transform.position.y - m_jumpStartY > maxHeight ||
+				m_rigidbody2D.velocity.y < 0
+			)
+				m_isJumping = false;
 		}
 	}
 	
