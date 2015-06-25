@@ -31,6 +31,8 @@ public class CoinBrick : MonoBehaviour {
 		if (coin != 0 && coll.collider.tag == "Player") {
 
 			if (!coll.collider.GetComponent<UnitychanController>().IsJumping)return ;
+			float vForce = transform.position.y - coll.collider.transform.position.y;
+			if (vForce < 2)return ;
 
 			PopCoin ();
 			m_animator.SetTrigger ("Hit");
