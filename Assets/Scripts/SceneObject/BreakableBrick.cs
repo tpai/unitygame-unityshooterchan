@@ -7,8 +7,7 @@ public class BreakableBrick : MonoBehaviour {
 		if (coll.collider.tag == "Player") {
 
 			if (!coll.collider.GetComponent<UnitychanController>().IsJumping)return ;
-			float vForce = transform.position.y - coll.collider.transform.position.y;
-			if (vForce < 2)return ;
+			if (transform.position.y - coll.collider.transform.position.y < 1)return ;
 
 			GetComponent<SpriteRenderer>().enabled = false;
 			GetComponent<BoxCollider2D>().enabled = false;

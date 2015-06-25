@@ -17,6 +17,7 @@ public class UnitychanController : MonoBehaviour {
 	private Rigidbody2D m_rigidbody2D;
 	private BoxCollider2D m_boxcollider2D;
 	private float m_jumpStartY;
+	private bool m_keepJump;
 	private bool m_isJumping;
 	private bool m_isGround;
 	private bool m_isDead;
@@ -51,13 +52,16 @@ public class UnitychanController : MonoBehaviour {
 			Move (x, jump);
 
 			bool holdJump = Input.GetButton ("Jump");
-			if (holdJump && m_isJumping)
+			if (holdJump && m_keepJump)
 				m_rigidbody2D.AddForce (Vector2.up * 30f);
 
-			if (m_rigidbody2D.velocity.y > 0)
-				m_isJumping = true;
-			else if (m_rigidbody2D.velocity.y < 0 || transform.position.y - m_jumpStartY > maxHeight)
+			if (Mathf.Abs (transform.position.y - m_jumpStartY) > maxHeight)
+				m_keepJump = false;
+
+			if (m_rigidbody2D.velocity.y < 0) {
+				m_keepJump = false;
 				m_isJumping = false;
+			}
 		}
 	}
 	
@@ -77,6 +81,8 @@ public class UnitychanController : MonoBehaviour {
 		
 		// When press jump
 		if (jump && m_isGround) {
+			m_keepJump = true;
+			m_isJumping = true;
 			m_jumpStartY = transform.localPosition.y;
 			m_rigidbody2D.AddForce (Vector2.up * jumpPower);
 			m_animator.SetTrigger ("Jump");
