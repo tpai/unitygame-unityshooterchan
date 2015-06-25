@@ -54,10 +54,9 @@ public class UnitychanController : MonoBehaviour {
 			if (holdJump && m_isJumping)
 				m_rigidbody2D.AddForce (Vector2.up * 30f);
 
-			if (
-				transform.position.y - m_jumpStartY > maxHeight ||
-				m_rigidbody2D.velocity.y < 0
-			)
+			if (m_rigidbody2D.velocity.y > 0)
+				m_isJumping = true;
+			else if (m_rigidbody2D.velocity.y < 0 || transform.position.y - m_jumpStartY > maxHeight)
 				m_isJumping = false;
 		}
 	}
@@ -78,7 +77,6 @@ public class UnitychanController : MonoBehaviour {
 		
 		// When press jump
 		if (jump && m_isGround) {
-			m_isJumping = true;
 			m_jumpStartY = transform.localPosition.y;
 			m_rigidbody2D.AddForce (Vector2.up * jumpPower);
 			m_animator.SetTrigger ("Jump");
