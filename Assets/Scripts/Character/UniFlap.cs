@@ -10,7 +10,7 @@ public class UniFlap : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D (Collider2D other) {
-		if (other.tag == "Wall") {
+		if (other.tag == "Wall" || other.tag == "DamageObject") {
 
 			if (faceTo == 0)faceTo = 180;
 			else faceTo = 0;
