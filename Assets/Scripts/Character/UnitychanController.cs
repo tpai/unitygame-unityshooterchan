@@ -116,6 +116,7 @@ public class UnitychanController : MonoBehaviour {
 				PlayerSpawner.instance.Respawn (1f);
 			else
 				PlayerSpawner.instance.Nospawn ();
+
 			Destroy (gameObject, 1.1f);
 		}
 	}
