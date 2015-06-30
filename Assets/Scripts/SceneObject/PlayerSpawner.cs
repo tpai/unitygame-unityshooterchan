@@ -20,7 +20,7 @@ public class PlayerSpawner : MonoBehaviour {
 	}
 
 	public void Nospawn () {
-		Camera.main.GetComponent<CameraFollow>().AssignTarget (null);
+		Camera.main.GetComponent<CameraFollow>().AssignTarget (Camera.main.transform);
 	}
 
 	IEnumerator Spawn (float wait) {
