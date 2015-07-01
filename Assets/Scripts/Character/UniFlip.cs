@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class UniFlap : MonoBehaviour {
+public class UniFlip : MonoBehaviour {
 
 	int faceTo;
 
@@ -16,7 +16,7 @@ public class UniFlap : MonoBehaviour {
 			else faceTo = 0;
 
 			Quaternion rot = transform.rotation;
-			transform.parent.transform.rotation = Quaternion.Euler (rot.x, faceTo, rot.z);
+			transform.parent.rotation = Quaternion.Euler (rot.x, faceTo, rot.z);
 		}
 	}
 }

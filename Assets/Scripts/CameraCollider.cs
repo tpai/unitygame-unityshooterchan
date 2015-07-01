@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ScreenCollider : MonoBehaviour {
+public class CameraCollider : MonoBehaviour {
 
 	void Start () {
 		Camera cam = Camera.main;
@@ -15,7 +15,8 @@ public class ScreenCollider : MonoBehaviour {
 
 	void OnTriggerEnter2D (Collider2D other) {
 		if (other.tag == "DamageObject") {
-			other.GetComponent<UniMovement>().enabled = true;
+			if (other.GetComponent<UniMovement>() != null)
+				other.GetComponent<UniMovement>().enabled = true;
 		}
 	}
 }
