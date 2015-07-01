@@ -6,6 +6,7 @@ using System.Collections;
 public class CoinCounter : MonoBehaviour {
 
 	public Text coinText;
+	public int CoinLeft { get { return int.Parse (coinText.text); } }
 
 	private static CoinCounter m_instance;
 	public static CoinCounter instance

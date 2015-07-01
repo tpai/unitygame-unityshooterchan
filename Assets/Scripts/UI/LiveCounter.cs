@@ -6,7 +6,8 @@ using System.Collections;
 public class LiveCounter : MonoBehaviour {
 	
 	public Text liveText;
-	
+	public int LiveLeft { get { return int.Parse (liveText.text); } }
+
 	private static LiveCounter m_instance;
 	public static LiveCounter instance
 	{

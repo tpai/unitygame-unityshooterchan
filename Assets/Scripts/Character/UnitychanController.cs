@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 [RequireComponent(typeof(Animator), typeof(BoxCollider2D), typeof(Rigidbody2D))]
@@ -112,12 +113,28 @@ public class UnitychanController : MonoBehaviour {
 
 			// ------
 
-			if (LiveCounter.instance.AddLive (-1))
-				PlayerSpawner.instance.Respawn (1f);
-			else
-				PlayerSpawner.instance.Nospawn ();
+			PlayerSpawner.instance.Nospawn ();
 
-			Destroy (gameObject, 1.1f);
+			if (LiveCounter.instance.AddLive (-1))
+				PlayerSpawner.instance.Respawn (2f);
+			else {
+				TimeCounter.instance.Stop = true;
+				FinalScore.instance.Display (false);
+			}
+
+			Destroy (gameObject, 2.1f);
+		}
+
+		if (coll.collider.tag == "Goal") {
+			m_animator.SetFloat ("Horizontal", 0f);
+			m_animator.SetBool ("IsGround", true);
+			m_rigidbody2D.velocity = Vector2.zero;
+
+			TimeCounter.instance.Stop = true;
+			FinalScore.instance.Display (true);
+
+			GetComponent<UnitychanAttack>().enabled = false;
+			GetComponent<UnitychanController>().enabled = false;
 		}
 	}
 }

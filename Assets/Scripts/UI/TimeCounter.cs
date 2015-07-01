@@ -10,6 +10,7 @@ public class TimeCounter : MonoBehaviour {
 	private bool m_stop = false;
 	public bool Stop { set { m_stop = value; } }
 	private float m_nowTime = 200f;
+	public int TimeLeft { get { return int.Parse(timeText.text); } }
 	
 	private static TimeCounter m_instance;
 	public static TimeCounter instance
