@@ -16,6 +16,10 @@ public class PlayerSpawner : MonoBehaviour {
 	}
 
 	public void Respawn (float wait) {
+		transform.position = new Vector2 (
+			GameObject.Find ("Player").transform.position.x,
+			transform.position.y
+		);
 		StartCoroutine ( Spawn (wait) );
 	}
 
@@ -30,6 +34,7 @@ public class PlayerSpawner : MonoBehaviour {
 			transform.position,
 			Quaternion.identity
 		);
+		player.name = "Player";
 		Camera.main.GetComponent<CameraFollow>().AssignTarget (player.transform);
 	}
 }
