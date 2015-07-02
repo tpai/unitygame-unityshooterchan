@@ -8,8 +8,9 @@ public class TimeCounter : MonoBehaviour {
 	public Text timeText;
 
 	private bool m_stop = false;
-	public bool Stop { set { m_stop = value; } }
 	private float m_nowTime = 200f;
+
+	public bool Stop { set { m_stop = value; } }
 	public int TimeLeft { get { return int.Parse(timeText.text); } }
 	
 	private static TimeCounter m_instance;
@@ -28,6 +29,8 @@ public class TimeCounter : MonoBehaviour {
 	void FixedUpdate () {
 		if (!m_stop) {
 			m_nowTime -= Time.deltaTime;
+			if (m_nowTime <= 0)
+				m_nowTime = 0;
 			timeText.text = m_nowTime.ToString ("000");
 		}
 	}
