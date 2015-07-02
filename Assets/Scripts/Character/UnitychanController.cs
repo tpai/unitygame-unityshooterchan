@@ -82,6 +82,9 @@ public class UnitychanController : MonoBehaviour {
 		
 		// When press jump
 		if (jump && m_isGround) {
+
+			SendMessage("PlaySound", "Jump");
+
 			m_keepJump = true;
 			m_isJumping = true;
 			m_jumpStartY = transform.localPosition.y;
@@ -97,6 +100,9 @@ public class UnitychanController : MonoBehaviour {
 
 	void OnCollisionEnter2D (Collision2D coll) {
 		if (coll.collider.tag == "DamageObject") {
+
+			SendMessage("PlaySound", "Damage");
+
 			m_isDead = true;
 			m_animator.SetTrigger("Dead");
 			m_boxcollider2D.enabled = false;
