@@ -25,7 +25,8 @@ public class CoinInit : MonoBehaviour {
 		}
 
 		if (coll.collider.tag == "DamageObject") {
-			coll.collider.GetComponent<UniMovement>().Stop = true;
+			coll.collider.GetComponent<Animator>().enabled = false;
+			coll.collider.GetComponent<UniMovement>().enabled = false;
 			coll.collider.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 			coll.collider.GetComponent<Rigidbody2D>().isKinematic = false;
 

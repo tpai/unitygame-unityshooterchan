@@ -13,6 +13,8 @@ public class UnitychanController : MonoBehaviour {
 	public Transform groundCheckA;
 	public Transform groundCheckB;
 	public LayerMask whatIsGround;
+
+	public AudioClip failSound;
 	
 	private Animator m_animator;
 	private Rigidbody2D m_rigidbody2D;
@@ -107,6 +109,7 @@ public class UnitychanController : MonoBehaviour {
 			m_animator.SetTrigger("Dead");
 			m_boxcollider2D.enabled = false;
 			m_rigidbody2D.velocity = Vector2.zero; // Fix jump when die
+			GetComponent<UnitychanAttack>().enabled = false; // Disable attack
 
 			Vector2 dropForce;
 
@@ -124,6 +127,7 @@ public class UnitychanController : MonoBehaviour {
 			if (LiveCounter.instance.AddLive (-1))
 				PlayerSpawner.instance.Respawn (2f);
 			else {
+				AudioCtrler.instance.PlayOneShot (failSound);
 				TimeCounter.instance.Stop = true;
 				FinalScore.instance.Display (false);
 			}
@@ -132,6 +136,9 @@ public class UnitychanController : MonoBehaviour {
 		}
 
 		if (coll.collider.tag == "Goal") {
+
+			SendMessage("PlaySound", "Success");
+
 			m_animator.SetFloat ("Horizontal", 0f);
 			m_animator.SetBool ("IsGround", true);
 			m_rigidbody2D.velocity = Vector2.zero;

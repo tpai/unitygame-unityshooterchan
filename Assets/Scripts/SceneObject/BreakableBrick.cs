@@ -3,6 +3,8 @@ using System.Collections;
 
 public class BreakableBrick : MonoBehaviour {
 
+	public AudioClip breakSound;
+
 	void OnCollisionEnter2D (Collision2D coll) {
 		if (coll.collider.tag == "Player") {
 
@@ -11,6 +13,8 @@ public class BreakableBrick : MonoBehaviour {
 
 			GetComponent<SpriteRenderer>().enabled = false;
 			GetComponent<BoxCollider2D>().enabled = false;
+
+			AudioCtrler.instance.PlayOneShot(breakSound);
 
 			foreach (Transform child in transform) {
 				child.GetComponent<Rigidbody2D>().isKinematic = false;

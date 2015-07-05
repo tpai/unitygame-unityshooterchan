@@ -22,6 +22,9 @@ public class UnitychanAttack : MonoBehaviour {
 	}
 
 	IEnumerator Shoot (Vector3 direction) {
+
+		SendMessage ("PlaySound", "Shoot");
+
 		holdFire = true;
 		GameObject bullet = (GameObject)Instantiate (
 			coin,
