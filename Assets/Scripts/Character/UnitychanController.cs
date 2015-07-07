@@ -146,6 +146,8 @@ public class UnitychanController : MonoBehaviour {
 			TimeCounter.instance.Stop = true;
 			FinalScore.instance.Display (true);
 
+			GJBase.instance.AddScore (FinalScore.instance.GetFinalScore);
+
 			GetComponent<UnitychanAttack>().enabled = false;
 			GetComponent<UnitychanController>().enabled = false;
 		}
